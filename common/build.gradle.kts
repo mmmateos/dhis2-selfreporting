@@ -18,6 +18,8 @@ kotlin {
                 api(compose.material)
                 // Needed only for preview.
                 implementation(compose.preview)
+                implementation("io.ktor:ktor-client-core:2.1.2")
+                implementation("io.ktor:ktor-client-cio:2.1.2")
             }
         }
         named("androidMain") {
