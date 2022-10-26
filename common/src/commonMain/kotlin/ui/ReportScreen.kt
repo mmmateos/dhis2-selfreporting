@@ -41,7 +41,8 @@ fun ReportScreen(onSendReport: (Report) -> Unit) {
                         diastolic.toInt(),
                         systolic.toInt(),
                         pulse.toInt(),
-                        weight.toFloat()
+                        weight.toFloat(),
+                        "2022-10-26"
                     )
                 )
             }) {
