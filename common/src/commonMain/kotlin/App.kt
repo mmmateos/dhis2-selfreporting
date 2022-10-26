@@ -4,8 +4,6 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import di.Injector
-import model.Status
-import ui.Login
 import ui.NavBarScreen
 import ui.ReportScreen
 import ui.ReportingViewModel
@@ -40,12 +38,11 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
             viewModel.sendAuthentication(it)
         }
 
-        Screen.List -> NavBarScreen(viewModel)
+        Screen.Main -> NavBarScreen(viewModel)
         Screen.Report -> ReportScreen {
             viewModel.sendReport(it)
 
         }
-
         Screen.Profile -> profileScreen {
             viewModel.updateProfile(it)
         }

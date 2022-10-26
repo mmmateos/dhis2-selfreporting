@@ -69,7 +69,7 @@ class ReportingViewModel(
     fun sendAuthentication(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
             when (repository.sendAuthentication(code)) {
-                true -> navigateToScreen(Screen.Report)
+                true -> navigateToScreen(Screen.Main)
                 false -> {} //TODO show toast
             }
         }
