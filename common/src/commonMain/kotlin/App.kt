@@ -1,10 +1,7 @@
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 import di.Injector
 import model.Status
 import ui.Login
@@ -21,9 +18,12 @@ fun App() {
     MaterialTheme {
         Scaffold(
             topBar = {
-                LargeTopAppBar(
+                SmallTopAppBar(
                     title = {
-                        Text(screen.value.name)
+                        Text(
+                            text = screen.value.name,
+                            color = MaterialTheme.colorScheme.primary
+                        )
                     }
                 )
             }

@@ -21,15 +21,15 @@ import model.Report
 
 @Composable
 fun ReportScreen(onSendReport: (Report) -> Unit) {
-    var diastolic by remember{ mutableStateOf("") }
-    var systolic by remember{ mutableStateOf("") }
-    var pulse by remember{ mutableStateOf("") }
-    var weight by remember{ mutableStateOf("") }
+    var diastolic by remember { mutableStateOf("") }
+    var systolic by remember { mutableStateOf("") }
+    var pulse by remember { mutableStateOf("") }
+    var weight by remember { mutableStateOf("") }
     Column(Modifier.fillMaxWidth()) {
-        ReportField(diastolic) { diastolic = it }
-        ReportField(systolic) { systolic = it }
-        ReportField(pulse) { pulse = it }
-        ReportField(weight) { weight = it }
+        ReportField("Diastolic (mmHg)", diastolic) { diastolic = it }
+        ReportField("Systolic (mmHg)", systolic) { systolic = it }
+        ReportField("Pulse (bpm)", pulse) { pulse = it }
+        ReportField("Wight (Kg)", weight) { weight = it }
         Button(
             modifier = Modifier.align(Alignment.End).padding(16.dp),
             enabled = diastolic.isNotEmpty() && systolic.isNotEmpty()
@@ -51,10 +51,11 @@ fun ReportScreen(onSendReport: (Report) -> Unit) {
 }
 
 @Composable
-fun ReportField(value: String, onValueChange: (String) -> Unit) {
+fun ReportField(label: String, value: String, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
+        label = { Text(label) },
         modifier = Modifier.padding(16.dp).fillMaxWidth()
     )
 }
