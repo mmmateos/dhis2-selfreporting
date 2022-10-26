@@ -1,23 +1,13 @@
 package ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
+import Screen
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -29,6 +19,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun NavBarScreen(viewModel: ReportingViewModel) {
     val reports = viewModel.reports.collectAsState()
+    val profile = viewModel.profile.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -46,12 +37,12 @@ fun NavBarScreen(viewModel: ReportingViewModel) {
             )
         }
     ) {
-        when(viewModel.barScreen.value) {
+        when (viewModel.barScreen.value) {
             BarScreen.Journal -> JorunalScreen(reports.value)
             BarScreen.Home -> Text("Home")
-            BarScreen.Profile -> profileScreen {
+            BarScreen.Profile -> profileScreen(profile.value) {
                 viewModel.updateProfile(it)
-            }
+            }.also { viewModel.retrieveProfile() }
         }
     }
 }
@@ -79,7 +70,7 @@ fun BottomNavigationBar(currentRoute: BarScreen, onBarItemSelected: (BarScreen) 
     }
 }
 
-fun getIcon(barScreen: BarScreen) : ImageVector {
+fun getIcon(barScreen: BarScreen): ImageVector {
     return when (barScreen) {
         BarScreen.Journal -> Icons.Default.List
         BarScreen.Home -> Icons.Outlined.Home

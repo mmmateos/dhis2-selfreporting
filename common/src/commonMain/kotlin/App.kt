@@ -61,11 +61,6 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
         Screen.Main -> NavBarScreen(viewModel)
         Screen.Report -> ReportScreen {
             viewModel.sendReport(it)
-
-        }
-
-        Screen.Profile -> profileScreen {
-            viewModel.updateProfile(it)
         }
     }
 }
