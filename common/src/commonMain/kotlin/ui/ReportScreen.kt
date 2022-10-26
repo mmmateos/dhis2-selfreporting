@@ -37,6 +37,7 @@ fun ReportScreen(onSendReport: (Report) -> Unit) {
             onClick = {
                 onSendReport(
                     Report(
+                        "dwWgzxGz0S4",
                         diastolic.toInt(),
                         systolic.toInt(),
                         pulse.toInt(),
