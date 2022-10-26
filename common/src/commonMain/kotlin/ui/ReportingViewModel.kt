@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import model.Profile
 import model.Report
 import model.SendReportStatus
 import model.Status
@@ -33,6 +34,10 @@ class ReportingViewModel(
                 }
             )
         }
+    }
+
+    fun updateProfile(profile: Profile) {
+        // TODO Update profile
     }
 
     fun navigateToScreen(screen: Screen) {

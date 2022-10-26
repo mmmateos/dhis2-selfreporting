@@ -2,7 +2,12 @@ package ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,7 +40,15 @@ fun authenticationScreen(onLogin: (code: String) -> Unit) {
             onClick = {
                 onLogin(code)
             }) {
-            Text("Log In")
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Outlined.Lock, null, Modifier.size(18.dp), MaterialTheme.colorScheme.onPrimary)
+                Spacer(Modifier.size(8.dp))
+                Text(
+                    text = "Log In",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }

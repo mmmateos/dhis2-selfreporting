@@ -28,7 +28,7 @@ fun App() {
 fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
     when (screen) {
         Screen.Login -> logIn {
-            viewModel.navigateToScreen(Screen.Authentication)
+            viewModel.navigateToScreen(Screen.Profile)
         }
 
         Screen.Authentication -> authenticationScreen {
@@ -40,6 +40,10 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
             viewModel.sendReport(it)
 
         }
+
+        Screen.Profile -> profileScreen {
+            viewModel.updateProfile(it)
+        }
     }
 }
 
@@ -50,6 +54,7 @@ fun appHeader(screen: Screen) {
         Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
         Screen.List -> mainHeader("Journal")
         Screen.Report -> mainHeader("Report")
+        Screen.Profile -> mainHeader("Profile")
     }
 }
 
@@ -57,7 +62,8 @@ enum class Screen {
     Login,
     Authentication,
     List,
-    Report
+    Report,
+    Profile
 }
 
 expect fun getPlatformName(): String
