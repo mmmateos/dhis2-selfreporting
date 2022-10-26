@@ -25,11 +25,23 @@ class ReportingViewModel(
     val screen: MutableState<Screen>
         get() = _screen
 
+    private var _barScreen = mutableStateOf(BarScreen.Journal)
+    val barScreen: MutableState<BarScreen>
+        get() = _barScreen
+
+    private val _reports = MutableStateFlow(listOf<Report>())
+    val reports: StateFlow<List<Report>>
+        get() = _reports
+
     fun sendReport(report: Report) {
         CoroutineScope(Dispatchers.Main).launch {
             _sendReportStatus.value = SendReportStatus(
                 when (repository.sendReport(report)) {
-                    true -> Status.SUCCESS
+                    true -> {
+                        addReport(report)
+                        navigateToScreen(Screen.Main)
+                        Status.SUCCESS
+                    }
                     false -> Status.FAIL
                 }
             )
@@ -44,10 +56,20 @@ class ReportingViewModel(
         _screen.value = screen
     }
 
+    fun navigateToBarScreen(screen: BarScreen) {
+        _barScreen.value = screen
+    }
+
+
+
+    private fun addReport(report: Report) {
+        _reports.value = _reports.value.plus(report)
+    }
+
     fun sendAuthentication(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
             when (repository.sendAuthentication(code)) {
-                true -> navigateToScreen(Screen.Report)
+                true -> navigateToScreen(Screen.Main)
                 false -> {} //TODO show toast
             }
         }

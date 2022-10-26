@@ -4,6 +4,9 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import di.Injector
+import ui.NavBarScreen
+import ui.ReportScreen
+import ui.ReportingViewModel
 import ui.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,19 +31,18 @@ fun App() {
 fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
     when (screen) {
         Screen.Login -> logIn {
-            viewModel.navigateToScreen(Screen.Profile)
+            viewModel.navigateToScreen(Screen.Authentication)
         }
 
         Screen.Authentication -> authenticationScreen {
             viewModel.sendAuthentication(it)
         }
 
-        Screen.List -> Text("List")
+        Screen.Main -> NavBarScreen(viewModel)
         Screen.Report -> ReportScreen {
             viewModel.sendReport(it)
 
         }
-
         Screen.Profile -> profileScreen {
             viewModel.updateProfile(it)
         }
@@ -52,7 +54,7 @@ fun appHeader(screen: Screen) {
     when (screen) {
         Screen.Login -> logInHeader("Self reporting app", "Log in", Icons.Outlined.AccountCircle)
         Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
-        Screen.List -> mainHeader("Journal")
+        Screen.Main -> mainHeader("Journal")
         Screen.Report -> mainHeader("Report")
         Screen.Profile -> mainHeader("Profile")
     }
@@ -61,7 +63,7 @@ fun appHeader(screen: Screen) {
 enum class Screen {
     Login,
     Authentication,
-    List,
+    Main,
     Report,
     Profile
 }
