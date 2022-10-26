@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun mainHeader(title: String) {
-    Column(modifier = Modifier.padding(top = 80.dp, start = 20.dp, end = 16.dp).fillMaxWidth())  {
+    Column(modifier = Modifier.padding(top = 20.dp, start = 16.dp, end = 16.dp).fillMaxWidth())  {
         Icon(Icons.Filled.AccountCircle, null, Modifier.align(Alignment.End)
             .size(60.dp), tint = MaterialTheme.colorScheme.primary)
         Text(
