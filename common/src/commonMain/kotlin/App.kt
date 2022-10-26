@@ -1,12 +1,13 @@
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import di.Injector
-import ui.NavBarScreen
-import ui.ReportScreen
-import ui.ReportingViewModel
+import kotlinx.coroutines.launch
+import model.Status
 import ui.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -15,6 +16,7 @@ fun App() {
 
     val viewModel = Injector.provideViewModel()
     val screen = viewModel.screen
+    val snackbarHostState = remember { SnackbarHostState() }
 
     MaterialTheme {
         Scaffold(
@@ -22,7 +24,25 @@ fun App() {
                 appHeader(screen.value)
             }
         ) {
+            SnackbarHost(snackbarHostState)
             AppScreen(screen.value, viewModel)
+        }
+    }
+
+    val scope = rememberCoroutineScope()
+    scope.launch {
+        viewModel.sendReportStatus.collect {
+            when (it.status) {
+                Status.SUCCESS -> snackbarHostState.showSnackbar(
+                    message = "Report successfully sent"
+                )
+
+                Status.FAIL -> snackbarHostState.showSnackbar(
+                    message = "Fail to send the report"
+                )
+
+                else -> {}
+            }
         }
     }
 }
@@ -43,6 +63,7 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
             viewModel.sendReport(it)
 
         }
+
         Screen.Profile -> profileScreen {
             viewModel.updateProfile(it)
         }
