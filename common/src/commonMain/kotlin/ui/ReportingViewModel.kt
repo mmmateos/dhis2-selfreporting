@@ -1,5 +1,8 @@
 package ui
 
+import Screen
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import data.ReportRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +20,9 @@ class ReportingViewModel(
     private val _sendReportStatus = MutableStateFlow(SendReportStatus())
     val sendReportStatus: StateFlow<SendReportStatus> = _sendReportStatus
 
+    private var _screen = mutableStateOf(Screen.Login)
+    val screen: MutableState<Screen>
+        get() = _screen
 
     fun sendReport(report: Report) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -27,5 +33,9 @@ class ReportingViewModel(
                 }
             )
         }
+    }
+
+    fun navigateToScreen(screen: Screen) {
+        _screen.value = screen
     }
 }

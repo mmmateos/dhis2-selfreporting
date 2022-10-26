@@ -12,10 +12,12 @@ kotlin {
 
     sourceSets {
         named("commonMain") {
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
+                api(compose.material3)
                 // Needed only for preview.
                 implementation(compose.preview)
                 implementation("io.ktor:ktor-client-core:2.1.2")
