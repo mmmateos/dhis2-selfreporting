@@ -27,4 +27,8 @@ class ReportRepository {
         client.close()
         return result
     }
+
+    suspend fun sendAuthentication(code: String): Boolean {
+        return true
+    }
 }
