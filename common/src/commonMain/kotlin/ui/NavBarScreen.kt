@@ -28,13 +28,18 @@ fun NavBarScreen(viewModel: ReportingViewModel) {
             }
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = {
-                    Icon(Icons.Default.Add, null)
-                    Text("New report", Modifier.padding(start = 16.dp))
-                },
-                onClick = { viewModel.navigateToScreen(Screen.Report) }
-            )
+            when (viewModel.barScreen.value) {
+                BarScreen.Profile -> { }
+                else -> {
+                    ExtendedFloatingActionButton(
+                        text = {
+                            Icon(Icons.Default.Add, null)
+                            Text("New report", Modifier.padding(start = 16.dp))
+                        },
+                        onClick = { viewModel.navigateToScreen(Screen.Report) }
+                    )
+                }
+            }
         }
     ) {
         when (viewModel.barScreen.value) {
