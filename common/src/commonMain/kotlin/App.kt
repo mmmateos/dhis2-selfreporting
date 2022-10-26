@@ -1,12 +1,9 @@
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
 import di.Injector
-import model.Status
-import ui.Login
-import ui.ReportScreen
-import ui.ReportingViewModel
+import ui.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -18,14 +15,7 @@ fun App() {
     MaterialTheme {
         Scaffold(
             topBar = {
-                SmallTopAppBar(
-                    title = {
-                        Text(
-                            text = screen.value.name,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                )
+                appHeader(screen.value)
             }
         ) {
             AppScreen(screen.value, viewModel)
@@ -36,14 +26,25 @@ fun App() {
 @Composable
 fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
     when (screen) {
-        Screen.Login -> Login {
+        Screen.Login -> logIn {
             viewModel.navigateToScreen(Screen.Report)
         }
+
         Screen.List -> Text("List")
         Screen.Report -> ReportScreen {
             viewModel.sendReport(it)
 
         }
+    }
+}
+
+@Composable
+fun appHeader(screen: Screen) {
+    when (screen) {
+        Screen.Login -> logInHeader("Self reporting app", "Log in", Icons.Outlined.AccountCircle)
+        // Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
+        Screen.List -> mainHeader("Journal")
+        Screen.Report -> mainHeader("Report")
     }
 }
 
