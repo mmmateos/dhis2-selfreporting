@@ -38,4 +38,13 @@ class ReportingViewModel(
     fun navigateToScreen(screen: Screen) {
         _screen.value = screen
     }
+
+    fun sendAuthentication(code: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            when (repository.sendAuthentication(code)) {
+                true -> navigateToScreen(Screen.Report)
+                false -> {} //TODO show toast
+            }
+        }
+    }
 }

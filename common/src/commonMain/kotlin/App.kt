@@ -1,5 +1,6 @@
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import di.Injector
@@ -27,7 +28,11 @@ fun App() {
 fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
     when (screen) {
         Screen.Login -> logIn {
-            viewModel.navigateToScreen(Screen.Report)
+            viewModel.navigateToScreen(Screen.Authentication)
+        }
+
+        Screen.Authentication -> authenticationScreen {
+            viewModel.sendAuthentication(it)
         }
 
         Screen.List -> Text("List")
@@ -42,7 +47,7 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
 fun appHeader(screen: Screen) {
     when (screen) {
         Screen.Login -> logInHeader("Self reporting app", "Log in", Icons.Outlined.AccountCircle)
-        // Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
+        Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
         Screen.List -> mainHeader("Journal")
         Screen.Report -> mainHeader("Report")
     }
@@ -50,6 +55,7 @@ fun appHeader(screen: Screen) {
 
 enum class Screen {
     Login,
+    Authentication,
     List,
     Report
 }
