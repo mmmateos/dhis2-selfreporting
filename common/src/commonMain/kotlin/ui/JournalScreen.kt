@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import model.Report
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,8 +31,6 @@ fun JorunalScreen(
 ) {
     LazyColumn(
         Modifier.fillMaxWidth()
-            .background(Color(0xFFFBFE))
-            .padding(16.dp)
     ) {
         items(reports) {
             ReportItem(it)
@@ -40,7 +40,8 @@ fun JorunalScreen(
 
 @Composable
 fun ReportItem(report: Report) {
-    Column(Modifier.fillMaxWidth()) {
+    Column(Modifier.fillMaxWidth().padding(16.dp).background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f), shape = RoundedCornerShape(16.dp)).padding(16.dp)) {
+        Text(text = "10/21/2022",  fontSize = 16.sp, fontWeight = FontWeight(500))
         RowItem("Diastolic", report.diastolic.toString())
         RowItem("Systolic", report.systolic.toString())
         RowItem("Pulse", report.pulse.toString())
