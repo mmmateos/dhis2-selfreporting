@@ -42,7 +42,6 @@ class ReportingViewModel(
             _sendReportStatus.value = SendReportStatus(
                 when (repository.sendReport(report)) {
                     true -> {
-                        addReport(report)
                         navigateToScreen(Screen.Main)
                         Status.SUCCESS
                     }
@@ -65,11 +64,6 @@ class ReportingViewModel(
         _barScreen.value = screen
     }
 
-
-    private fun addReport(report: Report) {
-        _reports.value = _reports.value.plus(report)
-    }
-
     fun sendAuthentication(code: String) {
         CoroutineScope(Dispatchers.Main).launch {
             when (repository.sendAuthentication(code)) {
@@ -82,6 +76,12 @@ class ReportingViewModel(
     fun retrieveProfile() {
         CoroutineScope(Dispatchers.Main).launch {
             _profile.value = repository.receiveProfile()
+        }
+    }
+
+    fun getReports() {
+        CoroutineScope(Dispatchers.Main).launch {
+            _reports.value = repository.receiveReports()
         }
     }
 }

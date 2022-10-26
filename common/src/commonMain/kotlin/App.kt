@@ -58,7 +58,7 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
             viewModel.sendAuthentication(it)
         }
 
-        Screen.Main -> NavBarScreen(viewModel)
+        Screen.Main -> NavBarScreen(viewModel).also { viewModel.getReports() }
         Screen.Report -> ReportScreen {
             viewModel.sendReport(it)
         }
