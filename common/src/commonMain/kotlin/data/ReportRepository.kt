@@ -7,6 +7,8 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import model.Profile
+import model.ProfileDTO
 import model.Report
 import model.VitalsDTO
 
@@ -49,5 +51,13 @@ class ReportRepository {
         val vitals: VitalsDTO = response.body()
         println(vitals.vitals)
         return vitals.vitals
+    }
+
+    suspend fun receiveProfile(): Profile {
+        val response: HttpResponse =
+            client.get("http://172.104.146.122:8080/api/self-reporting/info/dwWgzxGz0S4")
+        val profileDTO: ProfileDTO = response.body()
+        println(profileDTO)
+        return profileDTO.info
     }
 }

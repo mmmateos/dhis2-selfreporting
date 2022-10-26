@@ -33,6 +33,10 @@ class ReportingViewModel(
     val reports: StateFlow<List<Report>>
         get() = _reports
 
+    private val _profile = MutableStateFlow(Profile())
+    val profile: StateFlow<Profile>
+        get() = _profile
+
     fun sendReport(report: Report) {
         CoroutineScope(Dispatchers.Main).launch {
             _sendReportStatus.value = SendReportStatus(
@@ -42,6 +46,7 @@ class ReportingViewModel(
                         navigateToScreen(Screen.Main)
                         Status.SUCCESS
                     }
+
                     false -> Status.FAIL
                 }
             )
@@ -61,7 +66,6 @@ class ReportingViewModel(
     }
 
 
-
     private fun addReport(report: Report) {
         _reports.value = _reports.value.plus(report)
     }
@@ -72,6 +76,12 @@ class ReportingViewModel(
                 true -> navigateToScreen(Screen.Main)
                 false -> {} //TODO show toast
             }
+        }
+    }
+
+    fun retrieveProfile() {
+        CoroutineScope(Dispatchers.Main).launch {
+            _profile.value = repository.receiveProfile()
         }
     }
 }

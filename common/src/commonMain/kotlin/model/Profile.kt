@@ -1,9 +1,12 @@
 package model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Profile(
-    val firstName: Int,
-    val lastName: Int,
-    val dob: String,
-    val phoneNumber: Int,
-    val email: String
+    val firstName: String = "",
+    val lastName: String = "",
+    val dob: String = "",
+    val phone: String = "",
+    val email: String = ""
 )
