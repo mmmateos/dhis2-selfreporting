@@ -45,7 +45,7 @@ fun NavBarScreen(viewModel: ReportingViewModel) {
     ) {
         when (viewModel.barScreen.value) {
             BarScreen.Journal -> JorunalScreen(reports)
-            BarScreen.Home -> Text("Home")
+            BarScreen.Home -> homeScreen()
             BarScreen.Profile -> profileScreen(profile) {
                 viewModel.updateProfile(it)
             }

@@ -21,7 +21,7 @@ fun App() {
     MaterialTheme {
         Scaffold(
             topBar = {
-                appHeader(screen.value)
+                appHeader(screen.value, viewModel.barScreen.value)
             }
         ) {
             SnackbarHost(snackbarHostState)
@@ -66,13 +66,18 @@ fun AppScreen(screen: Screen, viewModel: ReportingViewModel) {
 }
 
 @Composable
-fun appHeader(screen: Screen) {
+fun appHeader(screen: Screen, barScreen: BarScreen) {
     when (screen) {
         Screen.Login -> logInHeader("Self reporting app", "Log in", Icons.Outlined.AccountCircle)
         Screen.Authentication -> logInHeader("Self reporting app", "Verification code", Icons.Outlined.Lock)
-        Screen.Main -> mainHeader("Journal")
-        Screen.Report -> mainHeader("Report")
-        Screen.Profile -> mainHeader("Profile")
+
+        else -> {
+            when (barScreen) {
+                BarScreen.Home -> mainHeader("Home")
+                BarScreen.Journal -> mainHeader("Journal")
+                BarScreen.Profile -> mainHeader("Profile")
+            }
+        }
     }
 }
 
