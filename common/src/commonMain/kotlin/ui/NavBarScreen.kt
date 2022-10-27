@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -18,8 +19,8 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavBarScreen(viewModel: ReportingViewModel) {
-    val reports = viewModel.reports.collectAsState()
-    val profile = viewModel.profile.collectAsState()
+    val reports by viewModel.reports.collectAsState()
+    val profile by viewModel.profile.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -38,11 +39,11 @@ fun NavBarScreen(viewModel: ReportingViewModel) {
         }
     ) {
         when (viewModel.barScreen.value) {
-            BarScreen.Journal -> JorunalScreen(reports.value)
+            BarScreen.Journal -> JorunalScreen(reports)
             BarScreen.Home -> Text("Home")
-            BarScreen.Profile -> profileScreen(profile.value) {
+            BarScreen.Profile -> profileScreen(profile) {
                 viewModel.updateProfile(it)
-            }.also { viewModel.retrieveProfile() }
+            }
         }
     }
 }

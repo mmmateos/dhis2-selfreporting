@@ -30,7 +30,7 @@ class ReportRepository {
                 "}"
         println(body)
         val response: HttpResponse =
-            client.post("http://172.104.146.122:8080/api/self-reporting/vital-signs") {
+            client.post("https://sr.winterop.cloud/api/self-reporting/vital-signs") {
                 contentType(ContentType.Application.Json)
                 setBody(body)
             }
@@ -47,7 +47,7 @@ class ReportRepository {
 
     suspend fun receiveReports(): List<Report> {
         val response: HttpResponse =
-            client.get("http://172.104.146.122:8080/api/self-reporting/vital-signs/dwWgzxGz0S4")
+            client.get("https://sr.winterop.cloud/api/self-reporting/vital-signs/dwWgzxGz0S4")
         val vitals: VitalsDTO = response.body()
         println(vitals.vitals)
         return vitals.vitals
@@ -55,7 +55,7 @@ class ReportRepository {
 
     suspend fun receiveProfile(): Profile {
         val response: HttpResponse =
-            client.get("http://172.104.146.122:8080/api/self-reporting/info/dwWgzxGz0S4")
+            client.get("https://sr.winterop.cloud/api/self-reporting/info/dwWgzxGz0S4")
         val profileDTO: ProfileDTO = response.body()
         println(profileDTO)
         return profileDTO.info

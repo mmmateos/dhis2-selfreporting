@@ -37,12 +37,20 @@ class ReportingViewModel(
     val profile: StateFlow<Profile>
         get() = _profile
 
+    init {
+        CoroutineScope(Dispatchers.Main).launch {
+            _reports.value = repository.receiveReports()
+            _profile.value = repository.receiveProfile()
+        }
+    }
+
     fun sendReport(report: Report) {
         CoroutineScope(Dispatchers.Main).launch {
             _sendReportStatus.value = SendReportStatus(
                 when (repository.sendReport(report)) {
                     true -> {
                         navigateToScreen(Screen.Main)
+                        _reports.value = repository.receiveReports()
                         Status.SUCCESS
                     }
 
@@ -70,18 +78,6 @@ class ReportingViewModel(
                 true -> navigateToScreen(Screen.Main)
                 false -> {} //TODO show toast
             }
-        }
-    }
-
-    fun retrieveProfile() {
-        CoroutineScope(Dispatchers.Main).launch {
-            _profile.value = repository.receiveProfile()
-        }
-    }
-
-    fun getReports() {
-        CoroutineScope(Dispatchers.Main).launch {
-            _reports.value = repository.receiveReports()
         }
     }
 }
